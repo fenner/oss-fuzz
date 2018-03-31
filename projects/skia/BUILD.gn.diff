@@ -170,6 +170,32 @@ test_app("api_raster_n32_canvas") {
   ]
 }
 
+test_app("api_null_gl_canvas") {
+  include_dirs = [
+    "tools",
+    "tools/debugger",
+  ]
+  sources = [
+    "fuzz/FuzzCanvas.cpp",
+    "fuzz/FuzzCommon.cpp",
+    "fuzz/oss_fuzz/FuzzNullGLCanvas.cpp",
+    "tools/UrlDataManager.cpp",
+    "tools/debugger/SkDebugCanvas.cpp",
+    "tools/debugger/SkDrawCommand.cpp",
+    "tools/debugger/SkJsonWriteBuffer.cpp",
+    "tools/debugger/SkObjectParser.cpp",
+    "tools/picture_utils.cpp",
+    "tools/LsanSuppressions.cpp"
+  ]
+  deps = [
+    ":flags",
+    ":gpu_tool_utils",
+    ":skia",
+    "//third_party/jsoncpp",
+    "//third_party/libpng",
+  ]
+}
+
 test_app("api_null_canvas") {
   include_dirs = [
     "tools",
@@ -194,3 +220,40 @@ test_app("api_null_canvas") {
     "//third_party/libpng",
   ]
 }
+
+test_app("png_encoder") {
+  sources = [
+    "fuzz/FuzzCommon.cpp",
+    "fuzz/FuzzEncoders.cpp",
+    "fuzz/oss_fuzz/FuzzPNGEncoder.cpp",
+  ]
+  deps = [
+    ":flags",
+    ":skia",
+  ]
+}
+
+test_app("jpeg_encoder") {
+  sources = [
+    "fuzz/FuzzCommon.cpp",
+    "fuzz/FuzzEncoders.cpp",
+    "fuzz/oss_fuzz/FuzzJPEGEncoder.cpp",
+  ]
+  deps = [
+    ":flags",
+    ":skia",
+  ]
+}
+
+test_app("webp_encoder") {
+  sources = [
+    "fuzz/FuzzCommon.cpp",
+    "fuzz/FuzzEncoders.cpp",
+    "fuzz/oss_fuzz/FuzzWEBPEncoder.cpp",
+  ]
+  deps = [
+    ":flags",
+    ":skia",
+  ]
+}
+
