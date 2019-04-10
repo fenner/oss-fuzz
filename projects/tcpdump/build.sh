@@ -15,27 +15,21 @@
 #
 ################################################################################
 
-cd libpcap
+cd $SRC/libpcap
 mkdir build
 cd build
 cmake ..
 make
 make install
 
-cd ../../tcpdump
-# build project
+cd $SRC/tcpdump
 mkdir build
 cd build
 cmake ..
 make
 
-# build fuzz targets
-$CC $CFLAGS -I.. -I. -c ../fuzz/fuzz_pcap.c -o fuzz_pcap.o
-$CXX $CXXFLAGS fuzz_pcap.o -o $OUT/fuzz_pcap libnetdissect.a ../../libpcap/build/libpcap.a -lFuzzingEngine
+# Not needed for fuzzing but useful as a product for replication with ASAN
+cp tcpdump $OUT/
 
-# export other associated stuff
-cd ..
-cp fuzz/fuzz_*.options $OUT/
-#builds corpus
-zip -r fuzz_pcap_seed_corpus.zip tests/*.pcap
-cp fuzz_pcap_seed_corpus.zip $OUT/
+# Now hand it over to the script in the tcpdump repo
+exec $SRC/tcpdump/fuzz/build.sh
