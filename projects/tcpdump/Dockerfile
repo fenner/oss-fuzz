@@ -16,9 +16,9 @@
 
 FROM gcr.io/oss-fuzz-base/base-builder
 MAINTAINER security@tcpdump.org
-RUN apt-get update && apt-get install -y make cmake flex bison
+RUN apt-get update && apt-get install -y make cmake flex bison python scapy
 RUN git clone --depth=1 https://github.com/the-tcpdump-group/libpcap.git libpcap
 #TODO use main repo
-RUN git clone --depth=1 --branch fuzz https://github.com/catenacyber/tcpdump.git tcpdump
+RUN git clone --depth=1 --branch fuzz https://github.com/fenner/tcpdump.git tcpdump
 WORKDIR $SRC
 COPY build.sh $SRC/
